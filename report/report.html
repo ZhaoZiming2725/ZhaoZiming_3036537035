@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Minnimum Wages and Employment: Replication of Card &amp; Krueger (1994)</title>
+<style>
+  body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 11pt; line-height: 1.5; margin: 2.2cm; color: #1a1a1a; }
+  h1 { font-size: 18pt; color: #2f5d8a; border-bottom: 2px solid #2f5d8a; padding-bottom: 6px;}
+  h2 { font-size: 13pt; color: #2f5d8a; margin-top: 20px; }
+  h3 { font-size: 11.5pt; margin-bottom: 4px;}
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 10pt;}
+  th, td { border: 1px solid #999; padding: 5px 8px; text-align: left;}
+  th { background: #eef3f8; }
+  .meta { color:#555; font-size: 10pt;}
+  .note { background:#f6f8fa; border-left:3px solid #2f5d8a; padding:8px 12px; font-size:10pt;}
+  .figure { text-align:center; margin:14px 0;}
+  .figure img { width: 80%; }
+  .cap { font-size:9.5pt; color:#555;}
+</style>
+</head>
+<body>
+
+<h1>Minimum Wages and Employment: A Replication of Card &amp; Krueger (1994)</h1>
+<p class="meta">Individual Project — ECON6067 Quantitative Tools for Economic Analysis<br>
+Replication of: Card, D., &amp; Krueger, A. B. (1994), <i>A Case Study of the Fast-Food
+Industry in New Jersey and Pennsylvania</i>, AER 84(4): 772–793.</p>
+
+<h2>1. Research Question and Motivation</h2>
+<p>Does raising the minimum wage reduce employment? Competitive labor-market theory
+predicts that a binding wage floor reduces labor demand; monopsony and efficiency-wage
+accounts predict it need not. Card and Krueger (1994) exploit a natural experiment:
+on 1 April 1992 New Jersey (NJ) raised its minimum wage from $4.25 to $5.05, while
+neighboring eastern Pennsylvania (PA) kept $4.25. We compare fast-food restaurant
+employment before (Feb–Mar 1992) and after (Nov–Dec 1992) the hike using a
+difference-in-differences (DID) design.</p>
+
+<h2>2. Data, Sample Construction, and Variables</h2>
+<p><b>Data.</b> Store-level survey of 410 Burger King, KFC, Roy Rogers, and Wendy's
+restaurants in NJ and eastern PA (<code>data/raw/public.csv</code>). Two waves;
+suffix <code>2</code> denotes the post-hike survey.</p>
+<p><b>Outcome.</b> Full-time-equivalent employment,
+<code>FTE = EMPFT + 0.5·EMPPT + NMGRS</code>. <b>Treatment.</b> <code>STATE=1</code>
+(NJ); control = PA.</p>
+<p><b>Sample.</b> Raw 410 stores. We drop stores missing wave-1 or wave-2 FTE, and
+keep a balanced panel of stores observed in both waves: <b>384 stores (309 NJ,
+75 PA)</b>. Ten stores closed or refused in wave 2; a robustness check re-includes
+permanent closures as zero FTE. Dropped counts are logged in
+<code>code/01_make_dataset.py</code>.</p>
+<p><b>First stage.</b> Mean starting wage was ~$4.61 in both states in wave 1; by
+wave 2 it rose to $5.08 in NJ (at the new $5.05 floor) but stayed ~$4.62 in PA. The
+hike bit in NJ and not in PA.</p>
+
+<h2>3. Empirical Design</h2>
+<p>Two-period DID on the balanced panel:</p>
+<p style="text-align:center;"><code>ΔFTE<sub>i</sub> = α + β·NJ<sub>i</sub> + ε<sub>i</sub></code></p>
+<p>where ΔFTE = FTE(wave 2) − FTE(wave 1). β = (NJ mean ΔFTE) − (PA mean ΔFTE). We
+add chain fixed effects and, in a third specification, region and company-ownership
+controls. The key identifying assumption is parallel employment trends across the
+border absent the hike.</p>
+
+<h2>4. Core Replication Results</h2>
+
+<h3>Table 3 — Mean FTE by state and wave (DID)</h3>
+<table>
+<tr><th>Group</th><th>Wave 1</th><th>Wave 2</th><th>Change</th><th>n</th></tr>
+<tr><td>Pennsylvania (control)</td><td>23.38</td><td>21.10</td><td>−2.28</td><td>75</td></tr>
+<tr><td>New Jersey (treatment)</td><td>20.43</td><td>20.90</td><td>+0.47</td><td>309</td></tr>
+<tr><td><b>DID (NJ change − PA change)</b></td><td colspan="3"><b>+2.75 FTE</b></td><td></td></tr>
+</table>
+<p>The paper reports a DID of <b>+2.76 FTE</b>. Our replication matches to within
+0.01. The sign is the opposite of the competitive prediction: NJ employment rose
+<em>relative to</em> PA after the wage hike.</p>
+
+<h3>Table 4 — DID regressions (ΔFTE ~ NJ)</h3>
+<table>
+<tr><th>Specification</th><th>DID coef (NJ)</th><th>Std. Error</th><th>t</th><th>n</th><th>R²</th></tr>
+<tr><td>(1) No controls</td><td>2.75</td><td>1.15</td><td>2.38</td><td>384</td><td>0.015</td></tr>
+<tr><td>(2) Chain fixed effects</td><td>2.78</td><td>1.15</td><td>2.41</td><td>384</td><td>0.029</td></tr>
+<tr><td>(3) Chain + region + co-owned</td><td>1.29</td><td>1.57</td><td>0.82</td><td>384</td><td>0.040</td></tr>
+</table>
+<p>The estimate is stable (~2.8, significant at 5%) once chain composition is
+controlled. It shrinks and loses significance when fine region dummies are added,
+because the PA control group has only 75 stores split into two regions, leaving
+little within-region identifying variation. Robustness: counting permanently closed
+stores as zero wave-2 FTE leaves the DID at +2.65.</p>
+
+<div class="figure">
+  <img src="../outputs/figures/fig_mean_fte_by_state.png">
+  <div class="cap">Figure 1. Mean FTE employment before and after the NJ minimum-wage hike.</div>
+</div>
+
+<h2>5. Independent Extension: Did the Wage "Bite" Matter?</h2>
+<p><b>Question.</b> The competitive model predicts the effect should be strongest
+where the new floor actually raised wages. We split NJ stores by wave-1 starting
+wage: <i>bitten</i> stores (wage &lt; $5.05, forced to raise pay) vs.
+<i>unconstrained</i> stores (wage ≥ $5.05, already above the floor), and compare
+each to the PA control.</p>
+<table>
+<tr><th>Group</th><th>n</th><th>Mean ΔFTE</th><th>DID vs. PA</th></tr>
+<tr><td>PA control</td><td>72</td><td>−2.15</td><td>—</td></tr>
+<tr><td>NJ bitten (wage &lt; $5.05)</td><td>268</td><td>+0.69</td><td><b>+2.83 (t=2.48)</b></td></tr>
+<tr><td>NJ unconstrained (≥ $5.05)</td><td>25</td><td>−4.85</td><td>−2.70 (n.s.)</td></tr>
+</table>
+<p>The positive NJ-vs-PA result is driven precisely by the stores whose wages had to
+rise: bitten stores gained a significant 2.83 FTE relative to PA. Unconstrained
+stores are too few (n=25) to read strongly. This reinforces the paper's conclusion:
+even where the minimum wage bit, employment did not fall.</p>
+
+<div class="figure">
+  <img src="../outputs/figures/fig_extension_wage_bite.png">
+  <div class="cap">Extension. Mean employment change by whether the new minimum wage bit.</div>
+</div>
+
+<h2>6. Validation, Limitations, and Conclusion</h2>
+<p><b>Validation.</b> We independently recomputed group means and the DID by hand;
+the wave-1/wave-2 means and the DID match the paper to ~0.01 FTE. The first-stage
+wage jump, balanced-panel count (384), and stability across chain controls were all
+checked. The region-control sensitivity and a collinearity issue (all PA stores
+fall in PA1/PA2, which is perfectly collinear with STATE) were diagnosed and
+documented.</p>
+<p><b>Limitations.</b> This is a border DID, not a fully identified causal effect:
+PA has only 75 stores; parallel-trends cannot be tested with two waves; adding fine
+region controls weakens the estimate; the unconstrained-NJ subsample is small.</p>
+<p><b>Conclusion.</b> We replicate Card &amp; Krueger's headline finding: a minimum-wage
+increase was not associated with lower fast-food employment in NJ relative to PA
+(DID ≈ +2.75 FTE), and the effect is concentrated among the stores whose wages
+actually had to rise.</p>
+
+<p class="note"><b>AI-use disclosure:</b> see <code>AI_USE_DISCLOSURE.md</code>. AI
+drafted the cleaning/regression code; every number was recomputed by hand and checked
+against the paper. Two AI errors were corrected: an FTE definition that omitted
+managers (changed to match the paper), and a rank-deficient region regression
+(fixed by dropping PA2).</p>
+
+</body>
+</html>
