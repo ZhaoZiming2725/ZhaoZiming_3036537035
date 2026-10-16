@@ -7,7 +7,6 @@ The project reproduces **Tables 2-4 and Figure 1** of Card & Krueger (1994), the
 ## Start here
 
 - **Final report:** [report.pdf](report.pdf); browser version: [report/report.html](report/report.html).
-- **Review and remaining limitations:** [REVIEW_NOTES.md](REVIEW_NOTES.md).
 - **AI use:** [AI_USE_DISCLOSURE.md](AI_USE_DISCLOSURE.md).
 - **Reusable workflow:** [skills/SKILL.md](skills/SKILL.md).
 
@@ -30,7 +29,9 @@ The layout follows the [course example repository](https://github.com/Jeff7c/Che
 | `outputs/figures/` | Wage-distribution Figure 1 and ownership-extension confidence intervals |
 | `skills/SKILL.md` | Reusable instructions for generating and validating the main results |
 
-Supporting files include `requirements.txt` (reviewed dependencies), `REVIEW_NOTES.md` (review findings and unresolved replication details), and `report/report.html` (the matching browser-readable report). These supplement the required layout.
+Supporting files include `requirements.txt` (reviewed dependencies) and
+`report/report.html` (the matching browser-readable report). These supplement
+the required layout.
 
 ## Reproduce from a fresh clone
 

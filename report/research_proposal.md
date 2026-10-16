@@ -8,4 +8,4 @@ Core replication: Card & Krueger (1994) Tables 2-4 and Figure 1. Distinguish all
 
 Independent question: does company ownership moderate the NJ-PA employment contrast conditional on chain? Use the pre-treatment ownership interaction and HC3 confidence intervals; check sensitivity to the wider employment-only sample. Wage-bite comparisons are already in the original paper and do not alone constitute the independent extension.
 
-Consult the report and REVIEW_NOTES.md for results, validation, source discrepancies and limitations. No remaining task is presented as already completed unless it was actually checked.
+Consult the report for results, validation, source discrepancies and limitations. No remaining task is presented as already completed unless it was actually checked.
