@@ -1,4 +1,5 @@
 data/raw/*.csv
+!data/raw/public.csv
 __pycache__/
 *.pyc
 .DS_Store
