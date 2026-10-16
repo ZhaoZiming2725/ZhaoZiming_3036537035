@@ -1,4 +1,3 @@
-"""Compatibility entry point. Wage-bite comparisons belong to core replication.
-The independent extension now tests ownership heterogeneity."""
+"""Generate ownership-heterogeneity estimates and confidence-interval figure."""
 from analysis import extension
 if __name__=='__main__': extension()

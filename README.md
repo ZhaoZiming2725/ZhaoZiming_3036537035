@@ -14,7 +14,7 @@ The all-available employment DID is +2.76 FTE; the 384-store paired DID is +2.75
 
 ## Project files and responsibilities
 
-The layout follows the [course example repository](https://github.com/Jeff7c/ChenJianfei_3030135471). This repository is named `ZhaoZiming_3036537035` using the required `Name_StudentID` format. The README describes this replication and provides the commands a reviewer or AI agent can follow.
+The layout follows the [course example repository](https://github.com/Jeff7c/ChenJianfei_3030135471). This repository is named `ZhaoZiming_3036537035` using the required `Name_StudentID` format. The README describes the replication and provides the commands to reproduce the results.
 
 | Required path | Contents in this project |
 |---|---|
@@ -29,13 +29,13 @@ The layout follows the [course example repository](https://github.com/Jeff7c/Che
 | `outputs/figures/` | Wage-distribution Figure 1 and ownership-extension confidence intervals |
 | `skills/SKILL.md` | Reusable instructions for generating and validating the main results |
 
-Supporting files include `requirements.txt` (reviewed dependencies) and
+Supporting files include `requirements.txt` (dependency versions) and
 `report/report.html` (the matching browser-readable report). These supplement
 the required layout.
 
 ## Reproduce from a fresh clone
 
-Use Python 3.14 for the pinned, reviewed environment. Other Python versions have not been verified. A virtual environment is recommended.
+Use Python 3.14 for the pinned environment. Other Python versions have not been verified. A virtual environment is recommended.
 
 ```bash
 python3 -m venv .venv
@@ -46,7 +46,7 @@ python code/run_all.py
 python code/verify_public_source.py --create-input
 ```
 
-On Windows activate with `.venv\Scripts\activate`. The public author-equivalent `data/raw/public.csv` is included, preserving the latest repository update. The optional source-verification step needs internet access and creates `data/raw/public.csv` **only if missing** from the author-hosted public archive. It also checks every numeric value and missing value against `public.dat`. An existing input is verified, never silently replaced. The main `run_all.py` workflow runs offline after inputs are present, from any working directory, and regenerates processed data, CSV tables, figures, PDF, and HTML without manually editing data or code. Certificate verification remains enabled using certifi.
+On Windows activate with `.venv\Scripts\activate`. The public author-equivalent `data/raw/public.csv` is included, as the required input. The optional source-verification step needs internet access and creates `data/raw/public.csv` **only if missing** from the author-hosted public archive. It also checks every numeric value and missing value against `public.dat`. Existing inputs are compared with the source without being overwritten. The main `run_all.py` workflow runs offline after inputs are present, from any working directory, and regenerates processed data, CSV tables, figures, PDF, and HTML without manually editing data or code. Certificate verification remains enabled using certifi.
 
 Alternatively obtain the 410-row public survey from the sources below, convert `public.dat` using the 46-column codebook order, and put the resulting CSV in `data/raw/public.csv`. Only this verified public author-equivalent CSV is included. Other raw inputs remain ignored. Do not publish course download links or restricted data.
 
@@ -57,7 +57,7 @@ Alternatively obtain the 410-row public survey from the sources below, convert `
 - [Princeton catalogue](https://irs.princeton.edu/publications/data-sets/minimum-wages-and-employment-chapter-4)
 - [Original paper](https://davidcard.berkeley.edu/papers/njmin-aer.pdf)
 
-During review, all 410 x 46 submitted input values, including missingness, were independently verified against the author archive. `data/source_verification.json` records hashes. This establishes data identity, not how the original project acquired the input. No claim is made that the student personally performed that download or qualifies for a data-acquisition bonus.
+All 410 x 46 input values, including missingness, match the author archive. `data/source_verification.json` records the source URL and checksums; `code/verify_public_source.py` reproduces the comparison.
 
 ## Definitions and sample rules
 
@@ -68,24 +68,12 @@ During review, all 410 x 46 submitted input values, including missingness, were 
 - Table 3: all available means, paired changes, NJ initial-wage subgroups, and temporary-closure sensitivity. `STATE` + `SHEET` is the unique key, not `SHEET` alone.
 - Table 4: 357 stores with valid employment changes and wages in both waves, except permanently closed stores remain eligible. Five NJ/GAP models follow author `check.sas`.
 - Model v follows author code, which omits ownership despite the printed table label; the ownership-inclusive sensitivity is exported separately.
-- Extension: `dfte ~ STATE * CO_OWNED + C(CHAIN)`, HC3 intervals, plus the 384-store sample sensitivity. Wage-bite splits are part of the original analysis and are not claimed as an independent extension.
+- Extension: `dfte ~ STATE * CO_OWNED + C(CHAIN)`, HC3 intervals, plus the 384-store sample sensitivity. The extension examines ownership heterogeneity in addition to the original wage-gap analysis.
 
-## Outputs and checks
+## Validation
 
-| Path | Contents |
-|---|---|
-| `code/analysis.py` | Data definitions, Tables 2-4, Figure 1, ownership extension and benchmark assertions |
-| `code/build_report.py` | PDF/HTML built from computed tables |
-| `code/verify_public_source.py` | Obtain/verify public source, no overwrite of existing inputs |
-| `code/run_all.py` | Offline entry point |
-| `data/raw/` | Included verified public CSV; other local inputs and codebooks ignored |
-| `data/processed/` | Derived analysis variables and eligibility indicators |
-| `outputs/tables/` | Full estimates, counts, SEs, published comparisons and sensitivities |
-| `outputs/figures/` | Correct wage-distribution Figure 1 and ownership-extension intervals |
-| `outputs/validation.json` | Sample counts, missingness, closures and input checksum |
+Checks cover raw state counts, composite keys, 384/357 sample sizes, design-matrix rank, Table 4 coefficient/SE benchmarks, Table 3 DID values, and histogram totals. `requirements.txt` pins the dependency versions.
 
-Checks cover raw state counts, composite keys, 384/357 sample sizes, design-matrix rank, Table 4 coefficient/SE benchmarks, Table 3 DID values, and histogram totals. `requirements.txt` pins the reviewed dependency versions.
+## Replication limitations
 
-## Honest limits
-
-Table 3 row-3 SEs are not reconstructed (point estimates are); no paired SE is substituted. The public release yields 85.50% NJ stores at exactly $5.05 after the change versus 85.2% printed. Figure 1 documents modern bin boundaries. Model-v residual/F diagnostics and some Table 2 printed summaries differ slightly. These are disclosed in the report and comparison files. HC3 does not solve the two-state policy-inference problem. Findings should not be represented as conclusive positive causal effects.
+Table 3 row-3 point estimates are reproduced; their SEs are not reconstructed. The public release yields 85.50% NJ stores at exactly $5.05 after the change versus 85.2% printed. Figure 1 documents modern bin boundaries. Model-v residual/F diagnostics and some Table 2 printed summaries differ slightly. These are disclosed in the report and comparison files. HC3 does not solve the two-state policy-inference problem. Causal interpretation remains subject to the identifying assumptions and inference limitations.

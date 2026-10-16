@@ -5,5 +5,5 @@
   "rows": 410,
   "columns": 46,
   "all_values_and_missingness_identical": true,
-  "note": "Independent verification during review, not evidence of how the initial submission acquired the CSV."
+  "note": "All numeric values and missing values were compared with public.dat in the author archive."
 }

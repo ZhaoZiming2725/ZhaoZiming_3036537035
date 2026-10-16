@@ -21,8 +21,8 @@ Run `python code/run_all.py` from any working directory after the input exists. 
 - Table 3 reproduces all five rows and eight groups/contrasts; separate all-available and paired changes. Do not fill row-3 SEs with paired-change SEs.
 - Table 4 uses 357 stores: valid employment change and both wages, except retained permanent closures. Reproduce NJ models i/ii and GAP models iii-v. Column v follows author code and omits ownership; report the printed-label discrepancy and ownership-inclusive alternative.
 - Figure 1 shows starting-wage distributions, not mean employment.
-- The independent extension is the STATE x CO_OWNED interaction conditional on chain, with HC3 intervals and a 384-store sensitivity. Wage-bite comparisons belong to core replication.
+- The independent extension is the STATE x CO_OWNED interaction conditional on chain, with HC3 intervals and a 384-store sensitivity. Initial-wage comparisons are included in the core replication.
 
 ## Validation
 
-Check state counts (331 NJ/79 PA), composite STATE+SHEET key, 384 paired records, 357 regression records, full-rank design matrices, Table 4 published coefficient/OLS-SE benchmarks, Table 3 DIDs (2.75 paired; 2.51 temporary-closure sensitivity), and each wage distribution totaling 100%. Inspect the rendered PDF. Disclose remaining source discrepancies and two-state inference limitations; never promise exact agreement or causal certainty unsupported by the data.
+Check state counts (331 NJ/79 PA), composite STATE+SHEET key, 384 paired records, 357 regression records, full-rank design matrices, Table 4 published coefficient/OLS-SE benchmarks, Table 3 DIDs (2.75 paired; 2.51 temporary-closure sensitivity), and each wage distribution totaling 100%. Inspect the rendered PDF. Report source discrepancies and two-state inference limitations alongside the results.

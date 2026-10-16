@@ -1,5 +1,5 @@
 """Read author-hosted public archive and compare every numeric input.
-Does not overwrite the submitted CSV or infer its original download history.
+Compares existing inputs without overwriting them.
 Run explicitly with internet access: python code/verify_public_source.py
 """
 from pathlib import Path
@@ -26,6 +26,6 @@ with ZipFile(BytesIO(archive)) as z:
     assert np.allclose(source.to_numpy(float),csv.to_numpy(float),equal_nan=True,rtol=0,atol=0)
     for original,local in [('codebook','codebook.txt'),('read.me','author_readme.txt')]:
         (ROOT/'data/raw'/local).write_bytes(z.read(original))
-result={'verified_against':URL,'source_archive_sha256':hashlib.sha256(archive).hexdigest(),'csv_sha256':hashlib.sha256((ROOT/'data/raw/public.csv').read_bytes()).hexdigest(),'rows':len(csv),'columns':len(csv.columns),'all_values_and_missingness_identical':True,'note':'Independent verification during review, not evidence of how the initial submission acquired the CSV.'}
+result={'verified_against':URL,'source_archive_sha256':hashlib.sha256(archive).hexdigest(),'csv_sha256':hashlib.sha256((ROOT/'data/raw/public.csv').read_bytes()).hexdigest(),'rows':len(csv),'columns':len(csv.columns),'all_values_and_missingness_identical':True,'note':'All numeric values and missing values were compared with public.dat in the author archive.'}
 (ROOT/'data/source_verification.json').write_text(json.dumps(result,indent=2)+'\n')
 print('Verified all 410 x 46 input values, including missingness, against author archive.')
