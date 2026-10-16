@@ -30,6 +30,8 @@ the Princeton Industrial Relations Section data archive:
 
 - https://irs.princeton.edu/publications/data-sets/minimum-wages-and-employment-chapter-4
 - Archived record: http://arks.princeton.edu/ark:/88435/dsp0170795766s
+- Author mirror (same public dataset): https://davidcard.berkeley.edu/data_sets.html →
+  `njmin.zip`; the CSV is built from `public.dat` using the package codebook.
 
 The data are public and can be analyzed in Python, Stata, or R. Per the course
 data policy, the raw CSV is **not** included in this public repository; it is
