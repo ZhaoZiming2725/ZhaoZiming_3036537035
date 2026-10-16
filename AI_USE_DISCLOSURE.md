@@ -1,35 +1,30 @@
 # AI-Use Disclosure
 
-## Where and how AI was used
-- Used an AI coding agent to draft the data-cleaning and regression scripts
-  (`01_make_dataset.py`, `02_replicate_main_table.py`) from the course data
-  dictionary and the Card & Krueger paper description.
-- Used AI to propose the FTE employment definition, the DID specification, and
-  the directory/README skeleton.
-- Used AI to help interpret the statsmodels output and the collinearity warning.
+## Scope
 
-## How AI-generated work was checked
-- **Manual recomputation:** independently computed the mean FTE by state and
-  wave and the DID by hand (groupby means) and confirmed the script matches:
-  DID ≈ +2.75 FTE vs. the paper's +2.76.
-- **Against the paper:** compared wave-1/wave-2 means and the DID to Card &
-  Krueger (1994) Table 3; small gaps traced to which closed/refused stores are
-  in the balanced panel.
-- **Assertion / sanity checks:** verified the first stage (NJ starting wage jumps
-  to ~$5.08/h, PA unchanged), the balanced-panel count (384 stores), and that
-  the coefficient is identical across the no-control and chain-FE regressions.
-- **Reran end-to-end:** restarted and ran both scripts from scratch after edits.
+AI assisted initial project drafting and the subsequent review: data definitions, empirical specifications, Python code, source comparisons, extension design, documentation and report writing. The final review uses the author paper, codebook and check.sas rather than trusting a headline estimate.
 
-## AI errors corrected or rejected
-- **Collinearity bug (corrected):** the first region-adjusted specification put
-  both PA1 and PA2 dummies plus STATE in the regression. Because every PA store
-  is either PA1 or PA2, `PA1 + PA2 = 1 − STATE` exactly — a rank-deficient design
-  that produced a spurious coefficient. Detected via the SingularMatrixWarning
-  and fixed by dropping PA2.
-- **FTE convention (checked, not trusted blindly):** AI first proposed
-  `EMPFT + 0.5*EMPPT` without managers. Testing showed including managers
-  (`+ NMGRS`) reproduces the paper's means and DID (2.75 vs 2.76); we kept the
-  manager-inclusive convention and documented it.
-- **Rejected:** an early suggestion to "just use statsmodels default SEs without
-  checking"; instead we inspected the design matrix and reported the
-  region-control sensitivity honestly.
+## Checks actually performed in the review
+
+- Downloaded the author public archive and compared all 410 x 46 CSV values, including missingness. They matched. The verification script and hashes document the check; the original acquisition route is not established.
+- Recomputed all tables and figures programmatically; used sample-count, composite-key, matrix-rank and numeric benchmark assertions.
+- Compared 40 Table 3 point estimates and five Table 4 coefficients/conventional SEs to the paper. All point estimates are within rounding and all Table 4 coefficient/SE pairs round to the published values.
+- Added HC3 inference sensitivity and ownership-extension intervals; ran the alternative employment-only extension sample.
+- Regenerated report PDF/HTML from computed CSV outputs, rendered and visually checked the PDF, and checked fresh-input reproduction.
+
+These are computer-assisted checks. An earlier statement that every number had been recomputed "by hand" was unsupported and has been removed. The student should personally inspect and understand the final analysis before submission; this disclosure does not assert student-only verification that was not observed.
+
+## Errors corrected or rejected
+
+1. **Wrong Figure 1:** a mean-employment bar chart was labeled as the original Figure 1. The actual figure shows starting-wage distributions in both states before and after the change. It has been replaced.
+2. **Incomplete assigned tables:** replaced a few selected means with the full Table 2 variable list and Table 3 groups/rows; reconstructed all five Table 4 models.
+3. **Wrong Table 4 sample:** 384-store employment-paired regressions do not reproduce the 357-store wage-and-employment sample. Both sample definitions are now explicit.
+4. **Closure confusion:** the six permanent closures already have zero employment in the public data. Highway/fire/renovation closures are temporary; they are zero only in the corresponding sensitivity. They are not reclassified as permanent closures.
+5. **Specification and collinearity confusion:** NJ plus all location dummies is collinear, but the assigned model v uses GAP, not NJ. Both PA dummies are valid with GAP and the omitted NJ reference region. The author model-v ownership omission and printed-label discrepancy are disclosed.
+6. **Extension overlap:** the original paper already analyzes initial wages/wage gaps. A wage-bite split alone is no longer called an independent extension; a conditional ownership interaction and sample sensitivity are used instead.
+7. **Overconfident interpretation:** a positive coefficient does not prove a positive policy effect. Conventional and HC3 results are distinguished, and the two-state inference limitation is explicit.
+8. **FTE definition:** managers are included because the paper and author code say so, not merely because a formula happens to match a target.
+
+## Remaining limits
+
+The Table 3 row-3 standard errors are not reconstructed. Figure 1 uses disclosed bins. A one-store exact-wage-share discrepancy and some printed summary diagnostics remain. No values were changed to force a match. Findings and text were AI-assisted; the student remains responsible for the final submission.

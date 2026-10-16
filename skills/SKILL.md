@@ -1,45 +1,28 @@
 ---
 name: minwage-did
-description: Replicate the Card & Krueger (1994) New Jersey minimum-wage DID — build the store-level panel, compute mean FTE employment by state and wave, estimate the difference-in-differences, and regenerate the main table and figure. Use when given the fast-food survey CSV (public.csv) and the goal is the employment effect of a minimum-wage hike.
+description: Reproduce the assigned Card-Krueger Tables 2-4 and Figure 1 from the public fast-food survey and test an ownership heterogeneity extension.
 ---
 
-# minwage-did — NJ minimum-wage DID workflow
+# Minimum-wage replication workflow
 
-Given a raw store-level survey CSV like `data/raw/public.csv`, reproduce the
-Card & Krueger (1994) Table 3 means, the Table 4 DID regressions, and the mean
-employment bar figure.
+## Input and environment
 
-## Input
-- A survey CSV with one row per store and columns: `STATE` (1=NJ, 0=PA),
-  `EMPFT`, `EMPPT`, `NMGRS` (wave 1) and `EMPFT2`, `EMPPT2`, `NMGRS2` (wave 2),
-  plus `CHAIN`, `CO_OWNED`, region dummies, and `STATUS2`.
+Install `requirements.txt`. Put the 410-store, 46-column survey CSV at `data/raw/public.csv`, or run `python code/verify_public_source.py --create-input` to obtain it from the public author archive. Do not publish course inputs or credentials.
 
-## Steps
-1. **Load & build FTE.** `FTE = EMPFT + 0.5*EMPPT + NMGRS` for each wave.
-2. **Define the panel.** Keep stores with non-missing FTE in both waves.
-   Record counts of dropped stores (missing wave-1, missing wave-2, closures).
-3. **First-stage check.** Compare mean starting wage (`WAGE_ST` vs `WAGE_ST2`)
-   by state — the treated state should show a jump to the new minimum.
-4. **Table 3 means.** Report mean FTE by state × wave, the within-state change,
-   and the DID = (NJ Δ) − (PA Δ).
-5. **Table 4 regressions.** Regress `ΔFTE` on `STATE`, then add chain fixed
-   effects, then region + co-ownership controls (drop one PA region dummy to
-   avoid collinearity with STATE). Report coefficient, SE, t, n, R².
-6. **Robustness.** Re-run the DID counting permanently closed stores
-   (`STATUS2` in 3,4,5) as zero wave-2 FTE.
-7. **Figure.** Bar chart of mean FTE by state, wave 1 vs wave 2.
+## Execution
 
-## Checks (report these)
-- Balanced-panel n and the NJ/PA split.
-- Did the treated state's starting wage actually rise?
-- Does the DID reproduce the paper (≈ +2.7 FTE, positive)?
-- Is the coefficient stable when adding chain controls? Note if fine region
-  controls shrink it (small PA sample).
+Run `python code/run_all.py` from any working directory after the input exists. This regenerates derived data, full tables, figures, report.pdf, and report/report.html. The main workflow runs offline. Do not manually edit result cells or report estimates.
 
-## Reproduce
-```bash
-python3 code/run_all.py
-```
-Outputs land in `outputs/tables/` and `outputs/figures/`. No manual editing of
-data or code is needed after the input CSV is placed in `data/raw/`. This also
-builds Table 2 (means of all variables) and the wage-bite extension.
+## Required definitions
+
+- FTE includes managers: EMPFT + 0.5*EMPPT + NMGRS.
+- Permanent closure STATUS2=3: wave-2 FTE zero. Temporary closures 2/4/5: missing except Table 3 row 5. Refusal: missing.
+- Table 2 uses variable-specific samples; wage indicator denominators and figure denominators are different and documented.
+- Table 3 reproduces all five rows and eight groups/contrasts; separate all-available and paired changes. Do not fill row-3 SEs with paired-change SEs.
+- Table 4 uses 357 stores: valid employment change and both wages, except retained permanent closures. Reproduce NJ models i/ii and GAP models iii-v. Column v follows author code and omits ownership; report the printed-label discrepancy and ownership-inclusive alternative.
+- Figure 1 shows starting-wage distributions, not mean employment.
+- The independent extension is the STATE x CO_OWNED interaction conditional on chain, with HC3 intervals and a 384-store sensitivity. Wage-bite comparisons belong to core replication.
+
+## Validation
+
+Check state counts (331 NJ/79 PA), composite STATE+SHEET key, 384 paired records, 357 regression records, full-rank design matrices, Table 4 published coefficient/OLS-SE benchmarks, Table 3 DIDs (2.75 paired; 2.51 temporary-closure sensitivity), and each wage distribution totaling 100%. Inspect the rendered PDF. Disclose remaining source discrepancies and two-state inference limitations; never promise exact agreement or causal certainty unsupported by the data.

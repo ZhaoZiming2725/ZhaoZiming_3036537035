@@ -1,0 +1,13 @@
+{
+  "raw_stores": 410,
+  "NJ": 331,
+  "PA": 79,
+  "permanent_closures": 6,
+  "temporary_closures": 4,
+  "refusals": 1,
+  "missing_fte1": 12,
+  "missing_fte2": 14,
+  "balanced": 384,
+  "table4": 357,
+  "raw_sha256": "45e6f4ac4928f7c9fcc2585a45e0467ecaa039f0b241f4c5a26cd290fd8e772b"
+}
