@@ -21,13 +21,14 @@ Use Python 3.14 for the pinned, reviewed environment. Other Python versions have
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python code/verify_public_source.py --create-input
 python code/run_all.py
+# Optional: independently verify or recreate the public input
+python code/verify_public_source.py --create-input
 ```
 
-On Windows activate with `.venv\Scripts\activate`. The source-verification step needs internet access and creates `data/raw/public.csv` **only if missing** from the author-hosted public archive. It also checks every numeric value and missing value against `public.dat`. An existing input is verified, never silently replaced. The main `run_all.py` workflow runs offline after inputs are present, from any working directory, and regenerates processed data, CSV tables, figures, PDF, and HTML without manually editing data or code. Certificate verification remains enabled using certifi.
+On Windows activate with `.venv\Scripts\activate`. The public author-equivalent `data/raw/public.csv` is included, preserving the latest repository update. The optional source-verification step needs internet access and creates `data/raw/public.csv` **only if missing** from the author-hosted public archive. It also checks every numeric value and missing value against `public.dat`. An existing input is verified, never silently replaced. The main `run_all.py` workflow runs offline after inputs are present, from any working directory, and regenerates processed data, CSV tables, figures, PDF, and HTML without manually editing data or code. Certificate verification remains enabled using certifi.
 
-Alternatively obtain the 410-row public survey from the sources below, convert `public.dat` using the 46-column codebook order, and put the resulting CSV in `data/raw/public.csv`. Raw inputs are excluded from Git. Do not publish course download links or restricted data.
+Alternatively obtain the 410-row public survey from the sources below, convert `public.dat` using the 46-column codebook order, and put the resulting CSV in `data/raw/public.csv`. Only this verified public author-equivalent CSV is included. Other raw inputs remain ignored. Do not publish course download links or restricted data.
 
 ## Data provenance
 
@@ -57,7 +58,7 @@ During review, all 410 x 46 submitted input values, including missingness, were 
 | `code/build_report.py` | PDF/HTML built from computed tables |
 | `code/verify_public_source.py` | Obtain/verify public source, no overwrite of existing inputs |
 | `code/run_all.py` | Offline entry point |
-| `data/raw/` | Ignored local input and author codebook |
+| `data/raw/` | Included verified public CSV; other local inputs and codebooks ignored |
 | `data/processed/` | Derived analysis variables and eligibility indicators |
 | `outputs/tables/` | Full estimates, counts, SEs, published comparisons and sensitivities |
 | `outputs/figures/` | Correct wage-distribution Figure 1 and ownership-extension intervals |

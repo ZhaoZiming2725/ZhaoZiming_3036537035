@@ -1,6 +1,6 @@
 # Review record - 16 October 2026
 
-Reviewed against the full course brief and the author paper, codebook and executable check.sas. This revision is based on remote main ec67432, preserving the later changes that exclude raw inputs and document the author mirror.
+Reviewed against the full course brief and the author paper, codebook and executable check.sas. This revision is based on remote main ec67432, preserving the documented author mirror. The subsequent remote update 7faae89, which includes the public author-equivalent CSV, was also retained during synchronization.
 
 ## Corrections
 
@@ -39,4 +39,4 @@ Read the revised methods and AI disclosure, verify that the name/student ID are 
 
 ## Validation completed
 
-A fresh directory with no input data successfully downloaded/converted the author archive, ran the complete workflow from a different working directory, reproduced every table CSV byte-for-byte, and generated a seven-page PDF. The final PDF was rendered and inspected; the clipped extension-chart title was shortened and rechecked. Raw CSV exclusion was verified.
+A fresh directory with no input data successfully downloaded/converted the author archive, ran the complete workflow from a different working directory, reproduced every table CSV byte-for-byte, and generated a seven-page PDF. The final PDF was rendered and inspected; the clipped extension-chart title was shortened and rechecked. The initial review verified raw CSV exclusion; synchronization subsequently preserved remote commit 7faae89, which includes only the verified public author-equivalent CSV. Other raw inputs remain ignored.
