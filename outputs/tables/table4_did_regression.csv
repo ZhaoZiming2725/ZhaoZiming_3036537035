@@ -1,0 +1,4 @@
+Specification,DID coef (NJ),Std. Error,t,n,R2
+(1) no controls,2.75,1.154,2.38,384,0.015
+(2) chain FE,2.776,1.154,2.41,384,0.029
+(3) chain + region + co-owned,1.286,1.573,0.82,384,0.04
