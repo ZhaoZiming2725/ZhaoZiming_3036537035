@@ -31,9 +31,14 @@ the Princeton Industrial Relations Section data archive:
 - https://irs.princeton.edu/publications/data-sets/minimum-wages-and-employment-chapter-4
 - Archived record: http://arks.princeton.edu/ark:/88435/dsp0170795766s
 
-The data are public and can be analyzed in Python, Stata, or R. The file
-`data/raw/public.csv` in this repository is this replication dataset
-(store-level survey of 410 fast-food restaurants, two waves).
+The data are public and can be analyzed in Python, Stata, or R. Per the course
+data policy, the raw CSV is **not** included in this public repository; it is
+downloaded locally and placed in the documented input folder.
+
+**To reproduce from a fresh clone:** if `data/raw/public.csv` is missing,
+download it from the Princeton link above and place it at `data/raw/public.csv`
+(the documented input folder); then run `python3 code/run_all.py`. No other
+input is required.
 
 ## Reproduce everything (one command)
 
@@ -53,7 +58,7 @@ data or code is needed.
 | `README.md` | This file. |
 | `report/research_proposal.md` | One-page proposal (final report: `report.pdf`). |
 | `AI_USE_DISCLOSURE.md` | How AI was used, checked, corrected/rejected. |
-| `data/raw/public.csv` | Original store-level survey (410 stores). |
+| `data/raw/` | Input folder (not in repo): place downloaded `public.csv` here (410-store survey). |
 | `data/processed/analysis_panel.csv` | Balanced analysis panel. |
 | `code/run_all.py` | One-click reproduction of all outputs. |
 | `code/01_make_dataset.py` … `04_extension_wage_bite.py` | Cleaning, tables, extension. |
