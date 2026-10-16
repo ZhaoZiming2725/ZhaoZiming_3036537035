@@ -13,6 +13,25 @@ The project reproduces **Tables 2-4 and Figure 1** of Card & Krueger (1994), the
 
 The all-available employment DID is +2.76 FTE; the 384-store paired DID is +2.75. The assigned Table 4 sample has **357** stores and yields a NJ coefficient of +2.33 without controls, not +2.75. All five Table 4 coefficients and conventional SEs match the paper after rounding. HC3 sensitivity and two-state inference limitations are reported. The independent ownership interaction is imprecise (about -0.94 FTE, HC3 p=0.721); it does not establish an ownership difference.
 
+## Project files and responsibilities
+
+The layout follows the [course example repository](https://github.com/Jeff7c/ChenJianfei_3030135471). This repository is named `ZhaoZiming_3036537035` using the required `Name_StudentID` format. The README describes this replication and provides the commands a reviewer or AI agent can follow.
+
+| Required path | Contents in this project |
+|---|---|
+| `README.md` | Research question, data sources, replication steps, sample rules, results and limitations |
+| `report.pdf` | Final empirical report: motivation, data, design, replication comparisons, ownership extension, validation and conclusion |
+| `AI_USE_DISCLOSURE.md` | AI use by stage, verification and important corrected/rejected suggestions |
+| `data/raw/` | Original public input `public.csv`; README explains provenance and recovery |
+| `data/processed/` | Derived FTE employment, changes, wage-gap variables and analysis eligibility |
+| `code/run_all.py` | Single entry point generating all main tables and figures, processed data and reports |
+| `code/` | Supporting analysis, report-generation and optional source-verification scripts |
+| `outputs/tables/` | Computed tables, benchmarks, counts and sensitivity estimates |
+| `outputs/figures/` | Wage-distribution Figure 1 and ownership-extension confidence intervals |
+| `skills/SKILL.md` | Reusable instructions for generating and validating the main results |
+
+Supporting files include `requirements.txt` (reviewed dependencies), `REVIEW_NOTES.md` (review findings and unresolved replication details), and `report/report.html` (the matching browser-readable report). These supplement the required layout.
+
 ## Reproduce from a fresh clone
 
 Use Python 3.14 for the pinned, reviewed environment. Other Python versions have not been verified. A virtual environment is recommended.
