@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Minnimum Wages and Employment: Replication of Card &amp; Krueger (1994)</title>
+<title>Minimum Wages and Employment: Replication of Card &amp; Krueger (1994)</title>
 <style>
   body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 11pt; line-height: 1.5; margin: 2.2cm; color: #1a1a1a; }
   h1 { font-size: 18pt; color: #2f5d8a; border-bottom: 2px solid #2f5d8a; padding-bottom: 6px;}
@@ -37,7 +37,11 @@ difference-in-differences (DID) design.</p>
 <h2>2. Data, Sample Construction, and Variables</h2>
 <p><b>Data.</b> Store-level survey of 410 Burger King, KFC, Roy Rogers, and Wendy's
 restaurants in NJ and eastern PA (<code>data/raw/public.csv</code>). Two waves;
-suffix <code>2</code> denotes the post-hike survey.</p>
+suffix <code>2</code> denotes the post-hike survey. Public replication data
+obtained from the Princeton Industrial Relations Section data archive
+(<code>irs.princeton.edu/publications/data-sets/minimum-wages-and-employment-chapter-4</code>,
+Krueger; archived at <code>arks.princeton.edu/ark:/88435/dsp0170795766s</code>),
+analyzable in Python, Stata, or R.</p>
 <p><b>Outcome.</b> Full-time-equivalent employment,
 <code>FTE = EMPFT + 0.5·EMPPT + NMGRS</code>. <b>Treatment.</b> <code>STATE=1</code>
 (NJ); control = PA.</p>
@@ -68,8 +72,12 @@ border absent the hike.</p>
 <tr><td><b>DID (NJ change − PA change)</b></td><td colspan="3"><b>+2.75 FTE</b></td><td></td></tr>
 </table>
 <p>The paper reports a DID of <b>+2.76 FTE</b>. Our replication matches to within
-0.01. The sign is the opposite of the competitive prediction: NJ employment rose
-<em>relative to</em> PA after the wage hike.</p>
+0.01. The wave-1/wave-2 means differ from the published table by ≈0.05–0.1 FTE
+(e.g., PA 23.38 vs 23.33, NJ 20.90 vs 21.03) because the paper computes means on
+its own sample of responding stores, whereas we use the balanced panel of stores
+observed in both waves and exclude closed/refused stores; the DID itself is
+robust to this choice. The sign is the opposite of the competitive prediction:
+NJ employment rose <em>relative to</em> PA after the wage hike.</p>
 
 <h3>Table 4 — DID regressions (ΔFTE ~ NJ)</h3>
 <table>
@@ -94,7 +102,8 @@ stores as zero wave-2 FTE leaves the DID at +2.65.</p>
 where the new floor actually raised wages. We split NJ stores by wave-1 starting
 wage: <i>bitten</i> stores (wage &lt; $5.05, forced to raise pay) vs.
 <i>unconstrained</i> stores (wage ≥ $5.05, already above the floor), and compare
-each to the PA control.</p>
+each to the PA control. The PA control here has n=72 (3 stores lack a wave-1
+starting wage and cannot be classified as bitten or unconstrained).</p>
 <table>
 <tr><th>Group</th><th>n</th><th>Mean ΔFTE</th><th>DID vs. PA</th></tr>
 <tr><td>PA control</td><td>72</td><td>−2.15</td><td>—</td></tr>

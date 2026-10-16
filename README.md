@@ -1,7 +1,5 @@
 # Minimum Wages and Employment: Card & Krueger (1994) Replication
 
-> Repository name should be `Name_StudentID`. Replace this header with your own.
-
 Replication of:
 
 > Card, D., & Krueger, A. B. (1994). "Minimum Wages and Employment: A Case Study
@@ -24,6 +22,18 @@ PA (DID ≈ +2.75 FTE; paper reports +2.76).**
 - **Figure 1** — mean FTE by state and wave (the DID visually).
 - **Independent extension** — split NJ stores by whether the new minimum wage
   actually bit (wave-1 wage below vs above $5.05).
+
+## Data source
+
+Raw data: public replication data for Card & Krueger (1994), downloaded from
+the Princeton Industrial Relations Section data archive:
+
+- https://irs.princeton.edu/publications/data-sets/minimum-wages-and-employment-chapter-4
+- Archived record: http://arks.princeton.edu/ark:/88435/dsp0170795766s
+
+The data are public and can be analyzed in Python, Stata, or R. The file
+`data/raw/public.csv` in this repository is this replication dataset
+(store-level survey of 410 fast-food restaurants, two waves).
 
 ## Reproduce everything (one command)
 
